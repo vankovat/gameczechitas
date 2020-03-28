@@ -1,5 +1,6 @@
 let width = 600;
 let height = 600;
+let keys = [];
 
 canvas.width = width;
 canvas.height = height;
@@ -32,7 +33,7 @@ let board = [
 ];
 
 let wall = new Image();
-wall.src = "images/wall.png";
+wall.src = "images/wall3.png";
 
 function generateBoard() {
   for (let y = 0; y < board.length; y++) {
@@ -45,3 +46,69 @@ function generateBoard() {
 }
 
 window.addEventListener("load", generateBoard);
+
+let player = {
+  x: 8,
+  y: 1
+};
+
+let hero = new Image();
+hero.src = "images/down.png";
+
+function draw() {
+  ctx.clearRect(
+    player.x * blockSize,
+    player.y * blockSize,
+    blockSize,
+    blockSize
+  );
+  generateBoard();
+  movement();
+  ctx.drawImage(
+    hero,
+    player.x * blockSize,
+    player.y * blockSize,
+    blockSize,
+    blockSize
+  );
+}
+
+window.addEventListener("load", draw);
+
+document.body.addEventListener("keydown", function(e) {
+  keys[e.keyCode] = true;
+
+  draw();
+});
+
+document.body.addEventListener("keyup", function(e) {
+  keys[e.keyCode] = false;
+
+  draw();
+});
+
+function movement() {
+  if (keys[39]) {
+    // šipka doprava
+    hero.src = "images/right.png";
+    player.x++;
+  }
+
+  if (keys[37]) {
+    // šipka doleva
+    hero.src = "images/left.png";
+    player.x--;
+  }
+
+  if (keys[38]) {
+    // šipka nahoru
+    hero.src = "images/up.png";
+    player.y--;
+  }
+
+  if (keys[40]) {
+    // šipka dolů
+    hero.src = "images/down.png";
+    player.y++;
+  }
+}
