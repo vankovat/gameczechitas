@@ -9,3 +9,22 @@
 body {
   background-image: url("images/outside3.png");
 }
+
+header {
+  font-family: "Gotu", sans-serif;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+  margin: 20px auto 10px auto;
+}
+
+header img {
+  margin-right: 10px;
+}
+
+#score,
+#time {
+  font-size: 20px;
+}
