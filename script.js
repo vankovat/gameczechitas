@@ -7,6 +7,27 @@ canvas.height = height;
 
 let ctx = canvas.getContext("2d");
 
+let pill1 = new Image();
+pill1.src = "images/pill1.png";
+
+let pill2 = new Image();
+pill2.src = "images/pill2.png";
+
+let pill3 = new Image();
+pill3.src = "images/pill3.png";
+
+let pill4 = new Image();
+pill4.src = "images/pill4.png";
+
+let fruit1 = new Image();
+fruit1.src = "images/fruit1.png";
+
+let fruit2 = new Image();
+fruit2.src = "images/fruit2.png";
+
+let tea = new Image();
+tea.src = "images/tea.png";
+
 let blockSize = 30;
 
 let board = [
@@ -43,6 +64,15 @@ function generateBoard() {
       }
     }
   }
+  for (let i = 0; i < pills.length; i++) {
+    ctx.drawImage(
+      pills[i].imageObject,
+      pills[i].x * blockSize,
+      pills[i].y * blockSize,
+      blockSize,
+      blockSize
+    );
+  }
 }
 
 window.addEventListener("load", generateBoard);
@@ -73,7 +103,7 @@ function draw() {
   );
 }
 
-window.addEventListener("load", draw);
+window.addEventListener("load", startGame);
 
 document.body.addEventListener("keydown", function(e) {
   keys[e.keyCode] = true;
@@ -121,4 +151,55 @@ function canMove(x, y) {
     x < board[y].length &&
     board[y][x] != 1
   );
+}
+
+let pills = [];
+
+function createPills() {
+  pills.push({
+    x: 1,
+    y: 1,
+    imageObject: pill1
+  });
+
+  pills.push({
+    x: 1,
+    y: 15,
+    imageObject: pill2
+  });
+
+  pills.push({
+    x: 14,
+    y: 12,
+    imageObject: pill3
+  });
+
+  pills.push({
+    x: 15,
+    y: 18,
+    imageObject: pill4
+  });
+
+  pills.push({
+    x: 5,
+    y: 11,
+    imageObject: fruit1
+  });
+
+  pills.push({
+    x: 18,
+    y: 5,
+    imageObject: fruit2
+  });
+
+  pills.push({
+    x: 11,
+    y: 10,
+    imageObject: tea
+  });
+}
+
+function startGame() {
+  createPills();
+  draw();
 }
