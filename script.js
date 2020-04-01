@@ -1,6 +1,8 @@
 let width = 600;
 let height = 600;
 let keys = [];
+let scoreElement = document.getElementById("score");
+let score = 0;
 
 canvas.width = width;
 canvas.height = height;
@@ -94,6 +96,7 @@ function draw() {
   );
   generateBoard();
   movement();
+  collect();
   ctx.drawImage(
     hero,
     player.x * blockSize,
@@ -202,4 +205,19 @@ function createPills() {
 function startGame() {
   createPills();
   draw();
+}
+
+function collect() {
+  for (let i = 0; i < pills.length; i++) {
+    if (player.x == pills[i].x && player.y == pills[i].y) {
+      pills.splice(i, 1);
+      increaseScore();
+    }
+  }
+}
+
+function increaseScore() {
+  score++;
+
+  scoreElement.textContent = `${score}/7`;
 }
