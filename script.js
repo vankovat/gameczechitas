@@ -221,3 +221,63 @@ function increaseScore() {
 
   scoreElement.textContent = `${score}/7`;
 }
+
+let timeElement = document.getElementById("time");
+let time = 0;
+
+function startGame() {
+  time = 60;
+  createPills();
+  draw();
+  timer();
+}
+
+function timer() {
+  function startTimer() {
+    let timer = time;
+    let minutes = 0;
+    let seconds = 0;
+
+    let countDownInterval = setInterval(function() {
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      //výhra
+      if (score === 7) {
+        clearInterval(countDownInterval);
+        endGame("win", timer);
+      }
+
+      //prohra
+      if (timer == 0) {
+        clearInterval(countDownInterval);
+        endGame("loss");
+      }
+
+      timeElement.textContent = minutes + ":" + seconds;
+
+      timer--;
+    }, 1000);
+  }
+
+  startTimer();
+}
+
+let endElement = document.getElementById("end");
+let endMessage = document.getElementById("message");
+
+function endGame(type, winTime) {
+  if (type === "win") {
+    endElement.style.display = "block";
+    endMessage.textContent = `Vyhráli jste! Sesbírali jste všechny vitamíny za ${time -
+      winTime} sekund.`;
+  }
+
+  if (type === "loss") {
+    endElement.style.display = "block";
+    endMessage.textContent = `Prohráli jste! Nestihli jste sesbírat všechny vitamíny. Zkuste to znovu.`;
+  }
+}
